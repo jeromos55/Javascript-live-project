@@ -1,22 +1,17 @@
 'use strict';
 
-const john = {
-  year: 1990,
-  firstName: 'John',
-  calcAge: function () {
-    console.log(this);
-    console.log(2037 - this.year);
-  },
-
-  greet: () => {
-    console.log(`Hey ${this.firstName}`);
-  },
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 };
 
-john.greet();
-// undefined because the arrow function hasn't 'this' object so it's a global object.
-console.log(this); // golbal object is window object
-console.log(this.firstName); // window object has't 'firstName'
+const arr = [2, 3, 4];
+const a = arr[0];
+const b = arr[1];
+const c = arr[2];
 
-var firstName = 'Maria'; // It has a global scope
-john.greet(); // so that's 'Hey Maria'
+const [x, y, z] = arr;
+console.log(x, y, z);
