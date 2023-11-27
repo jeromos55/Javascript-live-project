@@ -88,3 +88,9 @@ if (restaurant.orderPizza) {
 }
 
 restaurant.orderPizza && restaurant.orderPizza('mushroom', 'spinach');
+
+console.log('--- ?? ---'); // nullish operators are null and undefined
+
+console.log(restaurant.city ?? 10); // it hasn't city yet, so it's will be 10
+restaurant.city = 'Rome'; //
+console.log(restaurant.city ?? 10); // it has city, so it's 'Rome'
