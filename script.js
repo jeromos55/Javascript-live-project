@@ -49,46 +49,42 @@ const restaurant = {
   },
 };
 
-// ----------------------------------------
-// Destructuring
-// ----------------------------------------
+// Use any data type, return any data type, short-circuiting
+console.log('--- OR ---');
 
-// SPREAD because on RIGHT side of =
-const arr = [1, 2, ...[3, 4]];
-console.log(arr);
+console.log(3 || 'John'); // 3 is true so it's first operand 3
+console.log('' || 'John'); // '' is a false value so it's second operand 'John'
+console.log(true || 0); // true is true so it's first operand true
+console.log(undefined || null); // undefined is false so it's second operand null
+console.log(undefined || null || '' || 'Hello' || 23); // false, false, false, true, true
+// undefined = false, null = false, '' = false, 'Hello' = true, so it's the first true the result is 'Hello'
 
-// REST because on LEFT side of =
-const [a, b, ...others] = [1, 2, 3, 4, 5];
-console.log(a, b, others);
+console.log('----------');
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1);
 
-const [pizza, , risotto, ...otherFoods] = [
-  ...restaurant.mainMenu,
-  ...restaurant.starterMenu,
-];
-console.log(pizza, risotto, otherFoods);
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2);
 
-// objects
-const { sat, ...weekDays } = restaurant.openingHours;
-console.log(weekDays);
+console.log('----------');
 
-// ----------------------------------------
-// Functions
-// ----------------------------------------
+restaurant.numGuests = 23;
+const guests3 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests3);
 
-const add = (...numbers) => {
-  let sum = 0;
-  for (let i = 0; i < numbers.length; i++) {
-    sum += numbers[i];
-  }
-  console.log(sum);
-};
+const guests4 = restaurant.numGuests || 10;
+console.log(guests4);
 
-add(2, 3);
-add(5, 3, 7, 2);
-add(8, 2, 5, 3, 2, 1, 4);
+console.log('--- AND ---');
 
-const x = [23, 45, 76];
-add(...x);
+console.log(0 && 'John');
+console.log(7 && 'John');
 
-restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach');
-restaurant.orderPizza('mushrooms');
+console.log('John' && 23 && null && 'Hello'); // true, true, false, true
+// 'John' = true, 23 = true, null = false, so it's the first false the result is null
+
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('mushroom', 'spinach');
+}
+
+restaurant.orderPizza && restaurant.orderPizza('mushroom', 'spinach');
