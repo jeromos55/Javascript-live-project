@@ -36,130 +36,72 @@ const restaurant = {
       close: 24,
     },
   },
+
+  orderPasta: function (inc1, inc2, inc3) {
+    console.log(
+      `Here is your delicious pasta with ${inc1}, ${inc2} and ${inc3}`
+    );
+  },
 };
 
-// const arr = [2, 3, 4];
-// var a = arr[0];
-// var b = arr[1];
-// var c = arr[2];
-
-// // simpler way to destructing
-// const [x, y, z] = arr;
-
+// const arr = [3, 4, 5];
 // console.log(arr);
-// console.log(a, b, c);
-// console.log(x, y, z);
 
-// // first two variables
-// var [first, second] = restaurant.categories;
-// console.log(first, second);
+// const badNewArray = [1, 2, arr[0], arr[1], arr[2]];
+// console.log(badNewArray);
 
-// // first and third variables
-// var [first2, , second2] = restaurant.categories;
-// console.log(first2, second2);
+// // insert elements before the array
+// const newArray = [1, 2, ...arr];
+// console.log(newArray);
 
-// // switching variables
-// var temp = first;
-// first = second;
-// second = temp;
+// // without the spread operator
+// const withoutSpread = [1, 2, arr];
+// console.log(withoutSpread); // the array contains another array
 
-// console.log(first, second);
+// // print array elements invidually
+// console.log(...newArray);
 
-// // same as above switching variables but this is simplier
-// [first2, second2] = [second2, first2];
-// console.log(first2, second2);
+// // insert elements behind the array
+// const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+// console.log(newMenu);
 
-// console.log(restaurant.order(2, 0));
+// // copy array
+// const mainMenu = [...restaurant.mainMenu];
+// console.log(mainMenu);
 
-// //create new variables
-// let [newFirst, newSecond] = restaurant.order(2, 0);
-// console.log(newFirst, newSecond);
+// // join 2 array
+// const joinedMenu = [...restaurant.mainMenu, ...newMenu];
+// console.log(joinedMenu);
 
-// // destructing nested array
-// const nested = [2, 3, [4, 5]];
-// var [first, , second] = nested;
-// console.log(first, second);
+// // iterables: arrays, strings, maps, sets, NOT objects
+// const str = 'John';
+// const letters = [...str, ' ', 'S.'];
+// console.log(letters);
+// console.log(...str);
 
-// var third;
-// var [first, , [second, third]] = nested;
-// console.log(first, second, third);
+// // real world example
+// const ingredients = [
+//   prompt("Let's make pasta! Ingredients 1"),
+//   prompt('Ingredient 2'),
+//   prompt('Ingredient 3'),
+// ];
+// console.log(ingredients);
 
-// // default values
+// restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
+// restaurant.orderPasta(...ingredients);
 
-// var [p, q, r] = [8, 9];
-// console.log(p, q, r); // r = default
+// // objects
+// const newRestaurant = { foundedIn: 1989, ...restaurant, founder: 'Guiseppe' };
 
-// var [p = 1, q = 1, r = 1] = [8, 9];
-// console.log(p, q, r); // r = 1
+// const copyRestaurant = { ...newRestaurant };
+// copyRestaurant.name = 'Restaurant Roma';
+// console.log(restaurant.name);
+// console.log(copyRestaurant.name);
 
-// var [p = 1, q = 1, r = 1] = [8];
-// console.log(p, q, r); // q =1 and r =1
-
-// // destructing objects
-// const { name, openingHours, categories } = restaurant;
-// console.log(name, openingHours, categories);
-
-// const {
-//   name: restaurantName,
-//   openingHours: hours,
-//   categories: tags,
-// } = restaurant;
-// console.log(restaurantName, hours, tags);
-
-// // default values
-// const { menu = [], starterMenu: starters = [] } = restaurant;
-// console.log(menu, starters);
-
-// // mutating variables
-// var a = 111;
-// var b = 222;
-// const obj = { a: 23, b: 7, c: 14 };
-
-// // {a, b} = obj; // this is send an error message
-// ({ a, b } = obj); // this is a solvation
-// console.log(a, b);
-
-// // nested object destruction
-// var { fri } = restaurant.openingHours; // or only openingHours because we above destructing the restaurant object
-// console.log(fri);
-
-// var {
-//   fri: { open, close },
-// } = openingHours;
-// console.log(open, close);
-
-// // or
-
-// var {
-//   fri: { open: o, close: c },
-// } = openingHours;
-// console.log(o, c);
-
-// // typically use the function
-// restaurant.orderDelivery({
-//   time: '13:00',
-//   address: 'Via del sole, 21',
-//   mainIndex: 2,
-//   starterIndex: 2,
-// });
-
-// restaurant.orderDelivery({ address: 'Via del sole, 21', starterIndex: 1 });
-
-const arr = [3, 4, 5];
+// SPREAD because on RIGHT side of =
+const arr = [1, 2, ...[3, 4]];
 console.log(arr);
 
-const badNewArray = [1, 2, arr[0], arr[1], arr[2]];
-console.log(badNewArray);
-
-const newArray = [1, 2, ...arr];
-console.log(newArray);
-
-// without the spread operator
-const withoutSpread = [1, 2, arr];
-console.log(withoutSpread); // the array contains another array
-
-// print array elements invidually
-console.log(...newArray);
-
-const newMenu = [...restaurant.mainMenu, 'Gnocci'];
-console.log(newMenu);
+// REST because on LEFT side of =
+const [a, b, ...others] = [1, 2, 3, 4, 5];
+console.log(a, b, others);
