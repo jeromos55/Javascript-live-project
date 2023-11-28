@@ -1,55 +1,101 @@
 'use strict';
 
-const rest1 = {
-  name: 'Capri',
-  numGuest: 20,
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowski',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
 };
 
-const rest2 = {
-  name: 'La Piazza',
-  owner: 'Govanni Rossi',
-};
+/*
+-----------------------
+   CODING CHALLENGE
+-----------------------
 
-const rest3 = {
-  name: 'Capri',
-  numGuest: 20,
-};
+We're building a football betting app (soccer for my American friends)! Suppose we get data from a web service about a certain game ('game' variable on next page). In this challenge we're gonna work with that data.
 
-const rest4 = {
-  name: 'La Piazza',
-  owner: 'Govanni Rossi',
-};
+Your tasks:
 
-const rest5 = {
-  name: 'Capri',
-  numGuest: 34,
-};
+1. Create one player array for each team (variables 'players1' and 
+'players2')
 
-const rest6 = {
-  name: 'La Piazza',
-  owner: 'Govanni Rossi',
-};
+2. The first player in any player array is the goalkeeper and the others are field 
+players. For Bayern Munich (team 1) create one variable ('gk') with the 
+goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10 
+field players
 
-// OR assignment operator
-console.log('--- OR assignments ---');
+3. Create an array 'allPlayers' containing all players of both teams (22 
+players)
 
-rest1.numGuest = rest1.numGuest || 10; // rest1.numGuest is true so it's will be 20
-rest2.numGuest = rest2.numGuest || 10; // rest2.numGuest isn't exist so it's false and will be 10
+4. During the game, Bayern Munich (team 1) used 3 substitute players. So create a 
+new array ('players1Final') containing all the original team1 players plus 
+'Thiago', 'Coutinho' and 'Perisic'
 
-// same as above
-rest3.numGuest ||= 10;
-rest4.numGuest ||= 10;
+5. Based on the game.odds object, create one variable for each odd (called 
+'team1', 'draw' and 'team2')
 
-console.log(rest1);
-console.log(rest2);
-console.log(rest3);
-console.log(rest4);
+6. Write a function ('printGoals') that receives an arbitrary number of player 
+names (not an array) and prints each of them to the console, along with the 
+number of goals that were scored in total (number of player names passed in)
 
-// nullish assignment operator (null. undefined)
-console.log('--- nullish assignments ---');
+7. The team with the lower odd is more likely to win. Print to the console which 
+team is more likely to win, without using an if/else statement or the ternary 
+operator.
 
-rest5.numGuest ??= 10;
-rest6.numGuest ??= 10;
+Test data for 6.: First, use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. 
+Then, call the function again with players from game.scored
 
-console.log(rest5); // rest5.numGuest = 0 so it's will be 0
-console.log(rest6); // rest6.numGuest = undefined so it's will be 10
+GOOD LUCK
+*/
+
+// 1.
+const [player1, player2] = game.players;
+console.log(player1, player2);
+
+// 2.
+const [gk, ...fieldPlayers] = player1;
+console.log(gk, fieldPlayers);
+
+// 3.
+const allPlayers = [...player1, ...player2];
+console.log(allPlayers);
+
+// 4.
+const playerFinal = [...player1, 'Thiago', 'Couthino', 'Periscic'];
+console.log(playerFinal);
+
+// 5.
