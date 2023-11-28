@@ -1,96 +1,55 @@
 'use strict';
 
-const restaurant = {
-  name: 'Classico Italiano',
-  location: 'Via Angelo Tavanti 23, Firenze, Italy',
-  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-
-  order: function (starterIndex, mainIndex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]]; // returns an array containing  two elements
-  },
-
-  orderDelivery: function ({
-    starterIndex = 1,
-    mainIndex = 0,
-    time = '20:00',
-    address,
-  }) {
-    console.log(
-      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
-    );
-  },
-
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
-
-  orderPasta: function (inc1, inc2, inc3) {
-    console.log(
-      `Here is your delicious pasta with ${inc1}, ${inc2} and ${inc3}`
-    );
-  },
-
-  orderPizza: function (mainIngredient, ...otherIngredient) {
-    console.log(mainIngredient);
-    console.log(otherIngredient);
-  },
+const rest1 = {
+  name: 'Capri',
+  numGuest: 20,
 };
 
-// Use any data type, return any data type, short-circuiting
-console.log('--- OR ---');
+const rest2 = {
+  name: 'La Piazza',
+  owner: 'Govanni Rossi',
+};
 
-console.log(3 || 'John'); // 3 is true so it's first operand 3
-console.log('' || 'John'); // '' is a false value so it's second operand 'John'
-console.log(true || 0); // true is true so it's first operand true
-console.log(undefined || null); // undefined is false so it's second operand null
-console.log(undefined || null || '' || 'Hello' || 23); // false, false, false, true, true
-// undefined = false, null = false, '' = false, 'Hello' = true, so it's the first true the result is 'Hello'
+const rest3 = {
+  name: 'Capri',
+  numGuest: 20,
+};
 
-console.log('----------');
-const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
-console.log(guests1);
+const rest4 = {
+  name: 'La Piazza',
+  owner: 'Govanni Rossi',
+};
 
-const guests2 = restaurant.numGuests || 10;
-console.log(guests2);
+const rest5 = {
+  name: 'Capri',
+  numGuest: 34,
+};
 
-console.log('----------');
+const rest6 = {
+  name: 'La Piazza',
+  owner: 'Govanni Rossi',
+};
 
-restaurant.numGuests = 23;
-const guests3 = restaurant.numGuests ? restaurant.numGuests : 10;
-console.log(guests3);
+// OR assignment operator
+console.log('--- OR assignments ---');
 
-const guests4 = restaurant.numGuests || 10;
-console.log(guests4);
+rest1.numGuest = rest1.numGuest || 10; // rest1.numGuest is true so it's will be 20
+rest2.numGuest = rest2.numGuest || 10; // rest2.numGuest isn't exist so it's false and will be 10
 
-console.log('--- AND ---');
+// same as above
+rest3.numGuest ||= 10;
+rest4.numGuest ||= 10;
 
-console.log(0 && 'John');
-console.log(7 && 'John');
+console.log(rest1);
+console.log(rest2);
+console.log(rest3);
+console.log(rest4);
 
-console.log('John' && 23 && null && 'Hello'); // true, true, false, true
-// 'John' = true, 23 = true, null = false, so it's the first false the result is null
+// nullish assignment operator (null. undefined)
+console.log('--- nullish assignments ---');
 
-if (restaurant.orderPizza) {
-  restaurant.orderPizza('mushroom', 'spinach');
-}
+rest5.numGuest ??= 10;
+rest6.numGuest ??= 10;
 
-restaurant.orderPizza && restaurant.orderPizza('mushroom', 'spinach');
-
-console.log('--- ?? ---'); // nullish operators are null and undefined
-
-console.log(restaurant.city ?? 10); // it hasn't city yet, so it's will be 10
-restaurant.city = 'Rome'; //
-console.log(restaurant.city ?? 10); // it has city, so it's 'Rome'
+console.log(rest5); // rest5.numGuest = 0 so it's will be 0
+console.log(rest6); // rest6.numGuest = undefined so it's will be 10
