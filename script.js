@@ -35,7 +35,7 @@ const game = {
   scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
   date: 'Nov 9th, 2037',
   odds: {
-    team1: 1.33,
+    team1: 11.33,
     x: 3.25,
     team2: 6.5,
   },
@@ -83,19 +83,41 @@ GOOD LUCK
 */
 
 // 1.
+console.log('--- 1. ---');
 const [player1, player2] = game.players;
 console.log(player1, player2);
 
 // 2.
+console.log('--- 2. ---');
 const [gk, ...fieldPlayers] = player1;
 console.log(gk, fieldPlayers);
 
 // 3.
+console.log('--- 3. ---');
 const allPlayers = [...player1, ...player2];
 console.log(allPlayers);
 
 // 4.
+console.log('--- 4. ---');
 const playerFinal = [...player1, 'Thiago', 'Couthino', 'Periscic'];
 console.log(playerFinal);
 
 // 5.
+console.log('--- 5. ---');
+const {
+  odds: { team1, x: draw, team2 },
+} = game;
+console.log(team1, draw, team2);
+
+// 6.
+console.log('--- 6. ---');
+const printGoals = function (...players) {
+  console.log(players);
+  console.log(`${players.length} goals were scored`);
+};
+printGoals(...game.scored);
+
+// 7.
+console.log('--- 7. ---');
+team1 < team2 && console.log(`${game.team1} is more likely to win`);
+team1 > team2 && console.log(`${game.team2} is more likely to win`);
