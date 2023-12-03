@@ -11,7 +11,11 @@ const openingHours = {
     open: 11,
     close: 23,
   },
-  [`day-${2 + 4}`]: {
+  // [`day-${2 + 4}`]: {
+  //   open: 0,
+  //   close: 24,
+  // },
+  [weekdays[`${2 + 4}`]]: {
     open: 0,
     close: 24,
   },
@@ -68,10 +72,26 @@ console.log(restaurant.openingHours.mon?.open); // it's undefined if not exist m
 console.log(restaurant.openingHours?.mon?.open); // it's undefined if not exist mon and openingHours
 
 // Example
-const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 for (const day of days) {
   // console.log(day);
-  //const open = restaurant.openingHours[day]?.open || 'colsed'; // It isn't correct because the 0 is falsly, so we get 'closed' here
-  const open = restaurant.openingHours[day]?.open ?? 'colsed';
+  //const open = restaurant.openingHours[day]?.open || 'colsed'; // It isn't correct because the 0 is falsely, so we get 'closed' here
+  const open = restaurant.openingHours[day]?.open ?? 'colsed'; // now ?? is coorecting the problem and we get 0 here
   console.log(`On ${day}, we open at ${open}`);
+}
+
+// Methods
+console.log(restaurant.order?.(0, 1) ?? 'Method does not exist!');
+console.log(restaurant.orderXXX?.(0, 1) ?? 'Method does not exist!');
+
+// Arrays
+const users = [{ name: 'John' }, { email: 'hello@john.io' }];
+console.log(users[0]?.name ?? "User array item isn't present!");
+console.log(users[0]?.nameXXX ?? "User array item isn't present!");
+
+// this same as above but there are simple and smart for using for arrays
+if (users.length < 0) {
+  console.log(users[0]?.name);
+} else {
+  console.log("User array item isn't present!");
 }
