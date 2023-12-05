@@ -1,5 +1,26 @@
 'use strict';
 
+const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+const openingHours = {
+  [weekdays[4]]: {
+    open: 12,
+    close: 22,
+  },
+  [weekdays[5]]: {
+    open: 11,
+    close: 23,
+  },
+  // [`day-${2 + 4}`]: {
+  //   open: 0,
+  //   close: 24,
+  // },
+  [weekdays[`${2 + 4}`]]: {
+    open: 0,
+    close: 24,
+  },
+};
+
 //Maps has key, value pairs but every items can be deifferent types opposite the object items type.
 
 console.log('--- Maps ---');
@@ -51,3 +72,47 @@ console.log(rest2.get(arr));
 
 rest2.set(document.querySelector('h1'), 'Heading');
 console.log(rest2);
+
+// Map iteration
+console.log('--- Map iteration ---');
+const question = new Map([
+  ['question', 'Waht is the best programming language in the world?'],
+  [1, 'C'],
+  [2, 'java'],
+  [3, 'javascript'],
+  ['correct', 3],
+  [true, 'correct'],
+  [false, 'try again'],
+]);
+
+console.log(question);
+
+// Converting object to map
+console.log('--- Converting object to map ---');
+console.log(Object.entries(openingHours));
+
+const HoursMap = new Map(Object.entries(openingHours));
+console.log(HoursMap);
+
+// Quizz app
+console.log('--- Quizz app ---');
+console.log(question.get('question'));
+for (const [key, value] of question) {
+  if (typeof key === 'number') {
+    console.log(`Answer: ${key}: ${value}`);
+  }
+}
+
+const answer = Number(prompt('Your answer:'));
+console.log(answer);
+
+// const result = answer === question.get('correct') ? 'correct' : 'try again';
+const result = question.get(answer === question.get('correct'));
+console.log(result);
+
+// convert map to array
+console.log('--- Convert map to array ---');
+console.log(question.entries()); // map3
+console.log([...question]); // array of question
+console.log([...question.keys()]); // array of keys
+console.log([...question.values()]); //array of values
