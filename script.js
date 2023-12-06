@@ -1,69 +1,115 @@
 'use strict';
 
-/*
------------------------
-  CODING CHALLENGE
------------------------
+const airLine = 'TAP Air Portugal';
+const plane = 'A320';
 
-Let's continue with our football betting app! This time, we have a map called 
-'gameEvents' (see below) with a log of the events that happened during the 
-game. The values are the events themselves, and the keys are the minutes in which 
-each event happened (a football game has 90 minutes plus some extra time).
+console.log(plane[0]);
+console.log(plane[1]);
+console.log(plane[2]);
 
-Your tasks:
+console.log(airLine.length);
+console.log(plane.length);
 
-1. Create an array 'events' of the different game events that happened (no 
-duplicates)
+console.log(airLine.indexOf('r'));
+console.log(airLine.lastIndexOf('r'));
+console.log(airLine.indexOf('Portugal'));
+console.log(airLine.indexOf('xxxx'));
 
-2. After the game has finished, is was found that the yellow card from minute 64 
-was unfair. So remove this event from the game events log.
+console.log(airLine.slice(4));
+console.log(airLine.slice(4, 7));
 
-3. Compute and log the following string to the console: "An event happened, on 
-average, every 9 minutes" (keep in mind that a game has 90 minutes)
+console.log(airLine.slice(0, airLine.indexOf(' ')));
+console.log(airLine.slice(airLine.lastIndexOf(' ') + 1));
 
-4. Loop over 'gameEvents' and log each element to the console, marking 
-whether it's in the first half or second half (after 45 min) of the game, like this:
-[FIRST HALF] 17: GOAL
+console.log(airLine.slice(-2));
+console.log(airLine.slice(1, -1));
 
-GOOD LUCK */
+const checkMiddleSeat = function (seat) {
+  // B and E are middel seat
+  const s = seat.slice(-1);
+  s === 'E' || s === 'B'
+    ? console.log('You got the middle seat!')
+    : console.log('You got lucky!');
+};
 
-const gameEvents = new Map([
-  [17, 'GOAL'],
-  [36, 'Substitution'],
-  [47, 'GOAL'],
-  [61, 'Substitution'],
-  [64, 'Yellow card'],
-  [69, 'Red card'],
-  [70, 'Substitution'],
-  [72, 'Substitution'],
-  [76, 'GOAL'],
-  [80, 'GOAL'],
-  [92, 'Yellow card'],
-]);
+checkMiddleSeat('11B');
+checkMiddleSeat('23C');
+checkMiddleSeat('3E');
 
-// 1.
-console.log('--- 1. ---');
-const events = new Set([...gameEvents.values()]);
-console.log(events);
+console.log(new String('John'));
+console.log(typeof new String('John'));
+console.log(typeof new String('John').slice(1));
 
-// 2.
-console.log('--- 2. ---');
-gameEvents.delete(64);
-console.log(gameEvents);
+console.log(airLine.toLowerCase());
+console.log(airLine.toUpperCase());
 
-// 3.
-console.log('--- 3. ---');
-console.log(
-  `An event happened, on average, every ${90 / gameEvents.size} minutes.`
-);
-const time = [...gameEvents.keys()].pop();
-console.log(time);
-console.log(
-  `An event happened, on average, every ${90 / gameEvents.size} minutes.`
-);
+const password = 'JoHn';
+const passwordLower = password.toLowerCase();
+const passangerCorrect =
+  passwordLower[0].toUpperCase() + passwordLower.slice(1);
+console.log(passangerCorrect);
 
-// 4.
-for (const [min, event] of gameEvents) {
-  const half = min <= 45 ? 'FIRST' : 'SECOND';
-  console.log(`[${half} HALF] ${min}: ${event}`);
+const email = 'hello@john.com';
+const loginEmail = '   HeLLo@JohN.com';
+const lowerEmail = loginEmail.toLowerCase();
+const trimedEmail = lowerEmail.trim();
+console.log(trimedEmail);
+const normalizedEmail = lowerEmail.toLowerCase().trim();
+console.log(normalizedEmail);
+console.log(email === normalizedEmail);
+
+const priceGB = '288,345pound';
+console.log(priceGB);
+const priceUS = priceGB.replace(',', '.').replace('pound', '$');
+console.log(priceUS);
+
+const announcement =
+  'All passangers came to boarding door 23. Boarding door 23!';
+console.log(announcement.replace('door', 'gate'));
+console.log(announcement.replace(/door/g, 'gate'));
+
+// Booleans
+const plane2 = 'Airbus A320neo';
+console.log(plane2.includes('A320'));
+console.log(plane2.includes('Boeing'));
+console.log(plane2.startsWith('Air'));
+
+if (plane2.startsWith('Airbus') && plane2.endsWith('neo')) {
+  console.log('Part of the NEW Airbus family');
 }
+
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();
+  baggage.includes('knife') || baggage.includes('gun')
+    ? console.log('You are NOT allowed on board!')
+    : console.log('Wellcome aboard!');
+};
+
+checkBaggage('I have a laptop, some Food a pocket Knife.');
+checkBaggage('Socks and camera.');
+checkBaggage('Got some snacks and a gun for protection.');
+
+// split and join
+console.log('a+very+nice+string'.split('+'));
+console.log('John Smith'.split(' '));
+const [firstName, lastName] = 'John Smith'.split(' ');
+console.log(firstName, lastName);
+
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+
+const capitalizeName = function (item) {
+  const names = item.split(' ');
+  const namesUpper = [];
+
+  for (const n of names) {
+    // namesUpper.push(n[0].toUpperCase() + n.slice(1));
+    namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+  console.log(namesUpper.join(' '));
+};
+
+capitalizeName('jessica ann smith davis');
+capitalizeName('john smith');
+
+// string 3 --- 10:06
