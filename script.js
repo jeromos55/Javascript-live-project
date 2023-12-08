@@ -112,4 +112,36 @@ const capitalizeName = function (item) {
 capitalizeName('jessica ann smith davis');
 capitalizeName('john smith');
 
-// string 3 --- 10:06
+// Padding
+//const message = 'Go to gate 23!';
+console.log('Go to gate 23!'.padStart(19, '*').padEnd(24, '*'));
+// padStart 19 is *****string ---> number of '*' = 19 - 'Go to gate 23!'.length
+// padEnd 24 is string***** ---> number of '*' = 24 - '*****Go to gate 23!'.length
+
+// *****John*****
+// padStart ---> 5 + 'John'.length
+// padEnd ---> padStart + 5
+console.log('John'.padStart(9, '*').padEnd(14, '*'));
+
+const maskCredit = function (number) {
+  const str = number + ''; // convert number to string
+  const last = str.slice(-4); // slice last 4 character
+  return last.padStart(str.length, '*');
+};
+
+console.log(maskCredit(423423));
+console.log(maskCredit(232342342));
+console.log(maskCredit(2342342342342));
+
+// repeat
+const message2 = 'Bad weather ... All Departures Delayed... \n';
+console.log(message2.repeat(5));
+
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'🛫'.repeat(n)}`);
+};
+
+planesInLine(5);
+planesInLine(10);
+
+// other string methods ---> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
