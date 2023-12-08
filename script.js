@@ -25,7 +25,7 @@ console.log(airLine.slice(-2));
 console.log(airLine.slice(1, -1));
 
 const checkMiddleSeat = function (seat) {
-  // B and E are middel seat
+  // B and E are middle seat
   const s = seat.slice(-1);
   s === 'E' || s === 'B'
     ? console.log('You got the middle seat!')
@@ -45,15 +45,15 @@ console.log(airLine.toUpperCase());
 
 const password = 'JoHn';
 const passwordLower = password.toLowerCase();
-const passangerCorrect =
+const passengerCorrect =
   passwordLower[0].toUpperCase() + passwordLower.slice(1);
-console.log(passangerCorrect);
+console.log(passengerCorrect);
 
 const email = 'hello@john.com';
 const loginEmail = '   HeLLo@JohN.com';
 const lowerEmail = loginEmail.toLowerCase();
-const trimedEmail = lowerEmail.trim();
-console.log(trimedEmail);
+const trimmedEmail = lowerEmail.trim();
+console.log(trimmedEmail);
 const normalizedEmail = lowerEmail.toLowerCase().trim();
 console.log(normalizedEmail);
 console.log(email === normalizedEmail);
@@ -64,7 +64,7 @@ const priceUS = priceGB.replace(',', '.').replace('pound', '$');
 console.log(priceUS);
 
 const announcement =
-  'All passangers came to boarding door 23. Boarding door 23!';
+  'All passengers came to boarding door 23. Boarding door 23!';
 console.log(announcement.replace('door', 'gate'));
 console.log(announcement.replace(/door/g, 'gate'));
 
@@ -82,7 +82,7 @@ const checkBaggage = function (items) {
   const baggage = items.toLowerCase();
   baggage.includes('knife') || baggage.includes('gun')
     ? console.log('You are NOT allowed on board!')
-    : console.log('Wellcome aboard!');
+    : console.log('Welcome aboard!');
 };
 
 checkBaggage('I have a laptop, some Food a pocket Knife.');
