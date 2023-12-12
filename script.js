@@ -79,3 +79,62 @@ console.log(john);
 checkIn(flight, john);
 
 // So Javascript doesn't have passing by preference, only passing by value, even though looks like it's passing by preference. So There are languages like C++, where you can pass a reference to any value, instead of the value itself.
+
+//------------------------------------------
+// Functions accepting callback functions
+//------------------------------------------
+
+const oneWord = function (str) {
+  return str.replace(/ /g, '').toLowerCase();
+};
+
+const upperFirstWorld = function (str) {
+  const [first, ...other] = str.split(' ');
+  return [first.toUpperCase(), ...other].join(' ');
+};
+
+// Higher-order functions
+console.log('--- Higher-order functions ---');
+const transformer = function (str, fn) {
+  console.log(`Original string: ${str}`);
+  console.log(`Transformed string: ${fn(str)}`);
+
+  console.log(`Transformed by: ${fn.name}`);
+};
+
+transformer('Javascript the best!', upperFirstWorld);
+transformer('Javascript the best!', oneWord);
+
+const high5 = function () {
+  console.log('👋');
+};
+
+document.body.addEventListener('click', high5); // click the browser anywhere
+
+// -----------------------------
+// Functions returning function
+// -----------------------------
+
+console.log(' --- Functions returning function ---');
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
+
+const greetingHey = greet('Hey');
+console.log(greet);
+greetingHey('John');
+greetingHey('Steven');
+
+greet('Greet')('Steve');
+
+const greetArr = (greeting) => {
+  return (name) => {
+    console.log(`${greeting} ${name}`);
+  };
+};
+greetArr('Hello')('Jessica');
+
+const greetArr2 = (greeting) => (name) => console.log(`${greeting} ${name}`);
+greetArr2('Hi')('Robert');
