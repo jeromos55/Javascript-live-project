@@ -138,3 +138,59 @@ greetArr('Hello')('Jessica');
 
 const greetArr2 = (greeting) => (name) => console.log(`${greeting} ${name}`);
 greetArr2('Hi')('Robert');
+
+//------------------------------
+// The call and apply method
+//------------------------------
+
+console.log(' --- The call and apply method ---');
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  // book: function() {}
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+  },
+};
+
+lufthansa.book(239, 'John Travolta');
+lufthansa.book(635, 'John Heard');
+console.log(lufthansa);
+
+const euroWings = {
+  airline: 'EuroWings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+// Call method
+
+const book = lufthansa.book;
+// book(153, 'John Heard'); // this will be error because 'this' keyword points to nowhere
+
+book.call(euroWings, 234, 'John Heard'); // this call 'book' function from lufthansa object and the 'this' keywords pointing to the euroWings object
+console.log(euroWings);
+
+book.call(lufthansa, 635, 'John Reed'); // this call 'book' function from lufthansa object and the 'this' keywords pointing to the lufthansa object
+console.log(lufthansa);
+
+const swiss = {
+  airline: 'Swiss Air Lines',
+  iataCode: 'LX',
+  bookings: [],
+};
+
+book.call(swiss, 234, 'Marry Cooper');
+console.log(swiss);
+
+// Apply method this is same as the Call method but it can apply multiple data simultaneously
+
+const flightData = [836, 'George Cooper']; // array object
+book.apply(swiss, flightData); // apply an array object
+console.log(swiss);
+
+book.call(swiss, ...flightData); // this is same as above so it is a better way to apply an array object
