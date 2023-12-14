@@ -187,10 +187,77 @@ const swiss = {
 book.call(swiss, 234, 'Marry Cooper');
 console.log(swiss);
 
-// Apply method this is same as the Call method but it can apply multiple data simultaneously
+// Apply method
+//this is same as the Call method but it can apply multiple data simultaneously
 
 const flightData = [836, 'George Cooper']; // array object
 book.apply(swiss, flightData); // apply an array object
 console.log(swiss);
 
 book.call(swiss, ...flightData); // this is same as above so it is a better way to apply an array object
+
+//-----------------
+// The bind method
+//-----------------
+
+// just like the call method the bind also allows us to manually set this keywords for any functional call. Difference is that bind does not immediately call the function. Instead ot returns a new function where the this keyword is bound.
+
+console.log(' --- The bind method ---');
+// book.call(euroWings. 23, 'John Williams');
+
+const bookEW = book.bind(euroWings);
+const bookLH = book.bind(lufthansa);
+const bookSW = book.bind(swiss);
+
+bookEW(61, 'Jackson Joshua');
+bookLH(61, 'Jackson Joshua');
+bookSW(61, 'Jackson Joshua');
+
+console.log(euroWings);
+console.log(lufthansa);
+console.log(swiss);
+
+// the book method and the first argument is default value
+const bookEW23 = book.bind(euroWings, 23);
+bookEW23('John Williams');
+console.log(euroWings);
+
+// with event listeners
+lufthansa.planes = 300;
+
+lufthansa.buyPlane = function () {
+  console.log(this);
+  this.planes++;
+  console.log(this.planes);
+};
+
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+//---------------------
+// Partial application
+//---------------------
+
+console.log(' --- Partial application ---');
+const addTAX = (rate, value) => value + value * rate;
+
+console.log(addTAX(0.1, 200));
+
+const addVAT = addTAX.bind(null, 0.23);
+//const addVAT = value => value + value * 0.23
+
+console.log(addVAT(200));
+
+// const addTaxRate = function(rate) {
+//   return function(value) {
+//     return value + value * rate;
+//   }
+// }
+
+// this is same as above
+
+const addTaxRate = (rate) => (value) => value + value * rate;
+const addTAX2 = addTaxRate(0.23);
+console.log(addTAX2(200));
+console.log(addTAX2(23));
