@@ -1,57 +1,32 @@
 'use strict';
 
-//-----------------------------------------------
-// Immediately invoked function expression (IIFE)
-//-----------------------------------------------
+/*
 
-const runOnce = function () {
-  console.log('This will never run again.');
-};
-runOnce();
+-----------------------
+  CODING CHALLENGE
+-----------------------
 
-// IIFE
+This is more of a thinking challenge than a coding challenge
+
+Your tasks:
+
+1. Take the IIFE below and at the end of the function, attach an event listener that 
+changes the color of the selected h1 element ('header') to blue, each time 
+the body element is clicked. Do not select the h1 element again!
+
+2. And now explain to yourself (or someone around you) why this worked! Take all 
+the time you need. Think about when exactly the callback function is executed, 
+and what that means for the variables involved in this example.
+
+GOOD LUCK 
+
+*/
+
 (function () {
-  console.log('This will never run again.');
-  const isPrivate = 23;
-  console.log(isPrivate);
-  var notPrivate = 46;
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+
+  document.querySelector('body').addEventListener('click', function () {
+    header.style.color = 'blue';
+  });
 })();
-
-// console.log(isPrivate); // It's will be error message
-// console.log(notPrivate); // It's will be error message too
-
-{
-  var isNotPrivate = 35;
-}
-
-console.log(isNotPrivate);
-
-const runOnce2 = () => console.log('This will ALSO never run again.');
-runOnce2();
-
-// IIFE
-(() => console.log('This will ALSO never run again.'))();
-
-//------------
-// Closures
-//------------
-
-const secureBooking = function () {
-  let passengerCount = 0;
-
-  return function () {
-    passengerCount++;
-    console.log(`${passengerCount} passenger`);
-  };
-};
-
-const booker = secureBooking();
-console.log(booker); // This function has access and can modify the passengerCount variable
-booker();
-booker();
-booker();
-
-console.dir(booker);
-
-console.log(secureBooking);
-console.dir(secureBooking);
