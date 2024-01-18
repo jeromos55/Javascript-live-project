@@ -1,32 +1,54 @@
 'use strict';
 
-/*
+let arr = ['a', 'b', 'c', 'd', 'e'];
 
------------------------
-  CODING CHALLENGE
------------------------
+// slice
+console.log('--- slice ---');
+console.log(arr.slice(2));
+console.log(arr.slice(2, 4));
+console.log(arr.slice(-2));
+console.log(arr.slice(-1));
+console.log(arr.slice(1, -2));
+console.log(arr.slice());
+console.log(arr.slice([...arr]));
 
-This is more of a thinking challenge than a coding challenge
+// splice
 
-Your tasks:
+console.log('--- splice ---');
+// console.log(arr.splice(2));
+console.log(arr.splice(-1));
+console.log(arr);
+console.log(arr.splice(1, 2));
+console.log(arr);
 
-1. Take the IIFE below and at the end of the function, attach an event listener that 
-changes the color of the selected h1 element ('header') to blue, each time 
-the body element is clicked. Do not select the h1 element again!
+// reverse
+console.log('--- reverse ---');
+arr = ['i', 'h', 'g', 'f', 'e'];
+console.log(arr.reverse());
+console.log(arr);
 
-2. And now explain to yourself (or someone around you) why this worked! Take all 
-the time you need. Think about when exactly the callback function is executed, 
-and what that means for the variables involved in this example.
+// conacat
+let arr2 = ['a', 'b', 'c', 'd'];
+console.log('--- concat ---');
+console.log(arr2.concat(arr));
+console.log([...arr2, ...arr]);
 
-GOOD LUCK 
+// join
+console.log('--- join ---');
+console.log(arr2.concat(arr).join('-'));
 
-*/
+// at
+console.log('--- at ---');
+arr2 = [23, 11, 64];
+console.log(arr2);
+console.log(arr2[0]);
+console.log(arr2.at(0));
 
-(function () {
-  const header = document.querySelector('h1');
-  header.style.color = 'red';
+// get last array element
+console.log('--- last element ---');
+console.log(arr);
+console.log(arr[arr.length - 1]);
+console.log(arr.slice(-1)[0]);
 
-  document.querySelector('body').addEventListener('click', function () {
-    header.style.color = 'blue';
-  });
-})();
+console.log('John'.at(0));
+console.log('John'.at(-1));
