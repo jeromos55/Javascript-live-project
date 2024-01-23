@@ -103,13 +103,11 @@ const calcDisplaySummary = function (movements) {
   const incomes = movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  console.log(incomes);
   labelSumIn.textContent = `${incomes}€`;
 
   const out = movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  console.log(incomes);
   labelSumOut.textContent = `${Math.abs(out)}€`;
 
   const interest = movements
@@ -120,3 +118,24 @@ const calcDisplaySummary = function (movements) {
   labelSumInterest.textContent = `${interest}€`;
 };
 calcDisplaySummary(account1.movements);
+
+// event handlers
+
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  currentAccount = accounts.find(
+    (acc) => acc.username === inputLoginUsername.value
+  );
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // display UI and message
+    labelWelcome.textContent = `Welcome, back ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+    // display movements
+    // display balance
+    // display summary
+  }
+});
