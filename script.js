@@ -62,10 +62,12 @@ const inputClosePin = document.querySelector('.form__input--pin');
 //---------------------------------------------
 // BANKIST APP
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -204,3 +206,37 @@ btnClose.addEventListener('click', function (e) {
   }
   inputCloseUsername.value = inputClosePin.value = '';
 });
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
+//---------------------------------------------
+
+const acc1 = {
+  owner: 'Gabriel Blake',
+  movements: 12 / 12 / 2091,
+  interestRate: 26, // %
+  pin: 1.7507,
+};
+const acc2 = {
+  owner: 'Brent Spencer',
+  movements: 4 / 24 / 2080,
+  interestRate: 47, // %
+  pin: 1.1775,
+};
+const acc3 = {
+  owner: 'Lelia Long',
+  movements: 5 / 12 / 2080,
+  interestRate: 96, // %
+  pin: 1.9001,
+};
+const acc4 = {
+  owner: 'Isabel Cox',
+  movements: 9 / 3 / 2115,
+  interestRate: 71, // %
+  pin: 1.8195,
+};
