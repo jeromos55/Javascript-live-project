@@ -213,30 +213,3 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
 });
-
-//---------------------------------------------
-
-const acc1 = {
-  owner: 'Gabriel Blake',
-  movements: 12 / 12 / 2091,
-  interestRate: 26, // %
-  pin: 1.7507,
-};
-const acc2 = {
-  owner: 'Brent Spencer',
-  movements: 4 / 24 / 2080,
-  interestRate: 47, // %
-  pin: 1.1775,
-};
-const acc3 = {
-  owner: 'Lelia Long',
-  movements: 5 / 12 / 2080,
-  interestRate: 96, // %
-  pin: 1.9001,
-};
-const acc4 = {
-  owner: 'Isabel Cox',
-  movements: 9 / 3 / 2115,
-  interestRate: 71, // %
-  pin: 1.8195,
-};
