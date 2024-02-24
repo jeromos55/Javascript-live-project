@@ -19,7 +19,6 @@ console.log(document.getElementsByClassName('btn'));
 
 // creating and inserting elements
 // .insertAdjacentHTML
-console.log('--- Creating and inserting elements ---');
 
 const message = document.createElement('div');
 message.classList.add('cookie-message');
@@ -33,3 +32,15 @@ message.innerHTML =
 
 header.prepend(message); // add message before to the header
 // header.append(message); // add message after to the header
+// header.prepend(message.cloneNode(true));
+
+// header.before(message);
+// header.after(message);
+
+// deleting elements
+
+document.querySelector('.btn--close-cookie').addEventListener('click', () => {
+  // message.remove();
+  // message.parentNode.removeChild(message);
+  message.parentElement.removeChild(message);
+});
