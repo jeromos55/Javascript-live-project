@@ -179,6 +179,28 @@ const h1 = document.querySelector('h1');
 
 // the mouse events reference is here: https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
 
-h1.onmouseenter = function (e) {
-  alert('onmouseenter: Great! You are reading the heading :D');
-};
+// h1.onmouseenter = function (e) {
+//   alert('onmouseenter: Great! You are reading the heading :D');
+// };
+
+// same as event but it works ones because it remove the event listener
+// const alertH1 = function (e) {
+//   alert('Great! You are reading the heading :D');
+//   h1.removeEventListener('mouseenter', alertH1);
+// };
+
+// h1.addEventListener('mouseenter', alertH1);
+
+// but not need remove event listener immediately only later
+// const alertH1 = function (e) {
+//   alert('Great! You are reading the heading :D');
+
+// };
+
+// h1.addEventListener('mouseenter', alertH1);
+
+// setTimeout( () => {
+//   h1.removeEventListener('mouseenter', alertH1);
+// }, 3000);
+
+// onclick example in the html file
