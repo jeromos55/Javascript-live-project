@@ -122,12 +122,63 @@ logo.classList.contains('c');
 logo.className = 'John'; // because this overwrites all the classes
 
 // scrolling
+console.log('--- scrolling ---');
+
 const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('.section--1');
+const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', function (e) {
   const s1coords = section1.getBoundingClientRect();
   console.log(s1coords);
 
   console.log(e.target.getBoundingClientRect());
+
+  console.log(
+    'Current scroll position:',
+    window.pageXOffset,
+    window.pageYOffset
+  );
+
+  console.log('height/width:', window.innerHeight, window.innerWidth);
+  console.log('scroll height/width:', window.scrollY, window.scrollX);
+
+  console.log(
+    'height/width viewport:',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+
+  // window.scrollTo(s1coords.left, s1coords.top);
+  // It works relatively to the viewport
+
+  // window.scrollTo(
+  //   s1coords.left + window.scrollX,
+  //   s1coords.top + window.scrollY
+  // );
+  // It works relatively to the document
+
+  // window.scrollTo({
+  //   left: s1coords.left + window.scrollX,
+  //   top: s1coords.top + window.scrollY,
+  //   behavior: 'smooth',
+  // });
+  // this is an old way to do it, but it's still working
+
+  section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+// events
+console.log('--- events ---');
+
+const h1 = document.querySelector('h1');
+
+// hover
+// h1.addEventListener('mouseenter', function (e) {
+//   alert('addeventListener: Great! You are reading the heading :D');
+// });
+
+// the mouse events reference is here: https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
+
+h1.onmouseenter = function (e) {
+  alert('onmouseenter: Great! You are reading the heading :D');
+};
