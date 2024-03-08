@@ -204,3 +204,64 @@ const h1 = document.querySelector('h1');
 // }, 3000);
 
 // onclick example in the html file
+
+//-----------------------------------
+// event propagation in practice
+// ----------------------------------
+
+// const randomInt = (max, min) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+
+// const randomColor = () =>
+//   `rgb(${randomInt(255, 0)}, ${randomInt(255, 0)}, ${randomInt(255, 0)})`;
+// console.log(randomColor());
+
+// // e.target same as everywhere and e.currentTarget different everywhere
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK', e.target, e.currentTarget);
+
+//   // stop propagation
+//   e.stopPropagation(); // the events not working the other events only here
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER', e.target, e.currentTarget);
+// });
+
+// document.querySelector('.nav').addEventListener(
+//   'click',
+//   function (e) {
+//     this.style.backgroundColor = randomColor();
+//     console.log('NAV', e.target, e.currentTarget);
+//   },
+//   true // true for capturing phase and this even will works
+// );
+
+//-----------------------------------
+// page navigation
+// ----------------------------------
+
+// this is not the best solution because we add event listener all nav links
+
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// 1. add event listener to common parent element
+// 2. determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
