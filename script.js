@@ -265,3 +265,34 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+// dom traversing
+const h1Tag = document.querySelector('h1');
+// going  downward: children
+console.log(h1Tag.querySelectorAll('.highlight'));
+console.log(h1Tag.childNodes);
+console.log(h1Tag.children);
+h1Tag.firstElementChild.style.color = 'white';
+h1Tag.lastElementChild.style.color = 'orangered';
+
+// going upward: parents
+console.log(h1Tag.parentNode);
+console.log(h1Tag.parentElement);
+
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+h1.closest('h1').style.background = 'var(--gradient-primary)';
+
+// going sideways: siblings
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+
+console.log(h1.parentElement.children);
+
+// [...h1.parentElement.children].forEach(function (el) {
+//   if (el !== h1) {
+//     el.style.transform = 'scale(0.2)';
+//   }
+// });
