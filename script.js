@@ -57,10 +57,10 @@ console.log(message.style.backgroundColor);
 console.log(getComputedStyle(message).color);
 console.log(getComputedStyle(message).height);
 
-message.style.height =
-  Number.parseFloat(getComputedStyle(message).height, 10) + 50 + 'px';
+// message.style.height =
+//   Number.parseFloat(getComputedStyle(message).height, 10) + 50 + 'px';
 
-document.documentElement.style.setProperty('--color-primary', 'orangered');
+// document.documentElement.style.setProperty('--color-primary', 'orangered');
 
 // attributes
 console.log('--- attributes ---');
@@ -119,7 +119,7 @@ logo.classList.toggle('c');
 logo.classList.contains('c');
 
 // don't use
-logo.className = 'John'; // because this overwrites all the classes
+// logo.className = 'John'; // because this overwrites all the classes
 
 // scrolling
 console.log('--- scrolling ---');
@@ -346,3 +346,12 @@ const handleHover = function (e) {
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 
 nav.addEventListener('mouseout', handleHover.bind(1));
+
+// sticky navigation
+const initialCoord = section1.getBoundingClientRect();
+console.log(initialCoord);
+
+window.addEventListener('scroll', (e) => {
+  if (window.scrollY > initialCoord.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
