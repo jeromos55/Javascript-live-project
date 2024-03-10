@@ -133,14 +133,14 @@ btnScrollTo.addEventListener('click', function (e) {
 
   console.log(e.target.getBoundingClientRect());
 
-  console.log(
-    'Current scroll position:',
-    window.pageXOffset,
-    window.pageYOffset
-  );
+  // console.log(
+  //   'Current scroll position:',
+  //   window.pageXOffset,
+  //   window.pageYOffset
+  // );
 
-  console.log('height/width:', window.innerHeight, window.innerWidth);
-  console.log('scroll height/width:', window.scrollY, window.scrollX);
+  // console.log('height/width:', window.innerHeight, window.innerWidth);
+  // console.log('scroll height/width:', window.scrollY, window.scrollX);
 
   console.log(
     'height/width viewport:',
@@ -272,15 +272,15 @@ const h1Tag = document.querySelector('h1');
 console.log(h1Tag.querySelectorAll('.highlight'));
 console.log(h1Tag.childNodes);
 console.log(h1Tag.children);
-h1Tag.firstElementChild.style.color = 'white';
-h1Tag.lastElementChild.style.color = 'orangered';
+// h1Tag.firstElementChild.style.color = 'white';
+// h1Tag.lastElementChild.style.color = 'orangered';
 
 // going upward: parents
 console.log(h1Tag.parentNode);
 console.log(h1Tag.parentElement);
 
-h1.closest('.header').style.background = 'var(--gradient-secondary)';
-h1.closest('h1').style.background = 'var(--gradient-primary)';
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+// h1.closest('h1').style.background = 'var(--gradient-primary)';
 
 // going sideways: siblings
 console.log(h1.previousElementSibling);
@@ -296,3 +296,53 @@ console.log(h1.parentElement.children);
 //     el.style.transform = 'scale(0.2)';
 //   }
 // });
+
+// tabbed component
+const tabs = document.querySelectorAll('.operations__tab');
+
+const tabsContainer = document.querySelector('.operations__tab-container');
+
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// not the best solution because the all of the tabs will have a same event listener
+// tabs.forEach((t) => t.addEventListener('click', () => console.log('TAB')));
+
+tabsContainer.addEventListener('click', (e) => {
+  // const clicked = e.target.parentElement;
+  const clicked = e.target.closest('.operations__tab');
+
+  // guard clause
+  if (!clicked) return;
+
+  // remove active classes
+  tabs.forEach((t) => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach((c) => c.classList.remove('operations__content--active'));
+
+  // active tab
+  clicked.classList.add('operations__tab--active');
+
+  // activate content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
+// menu fade animation
+const nav = document.querySelector('.nav');
+
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const sibling = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    sibling.forEach((el) => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
