@@ -450,3 +450,43 @@ const imagesObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach((img) => imagesObserver.observe(img));
+
+// slides
+
+const slides = document.querySelectorAll('.slide');
+
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+const dotContainer = document.querySelector('.dots');
+
+let curSlide = 0;
+const maxSlide = slides.length - 1;
+
+slides.forEach((s, i) => (s.style.transform = `translateX(${i * 100}%)`)); // 0%, 100%, 200%, 300%
+
+const gotoSlide = function (slide) {
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${(i - slide) * 100}%)`)
+  );
+};
+gotoSlide(0);
+
+// next slide
+const nextSlide = function () {
+  maxSlide === curSlide ? (curSlide = 0) : curSlide++;
+  gotoSlide(curSlide);
+};
+
+const prevSlide = function () {
+  curSlide === 0 ? (curSlide = maxSlide) : curSlide--;
+  gotoSlide(curSlide);
+};
+
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', prevSlide);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') prevSlide();
+  e.key === 'ArrowRight' && nextSlide();
+});
