@@ -227,3 +227,104 @@ console.log(mike instanceof Object);
 
 Student.prototype.constructor = Student;
 console.dir(Student.prototype.constructor);
+
+// ---------------------------------------
+// Inheritance ES6 classes
+
+class Student2 extends PersonCl2 {
+  // always needs to happen first!
+  constructor(firstName, birthDay, course) {
+    super(firstName, birthDay);
+    this.course = course;
+  }
+
+  introduce = function () {
+    console.log(`Hi, I'm ${this.firstName} and I'm a ${this.course} student`);
+  };
+
+  calcAge() {
+    console.log(
+      `I'm ${2037 - this.birthDay} years old, but as a student I feel like ${
+        2037 - this.birthDay + 10
+      }`
+    );
+  }
+}
+
+const martha = new Student2('Martha', 1989, 'Biology');
+console.log(martha);
+martha.introduce();
+martha.calcAge();
+
+// ---------------------------------------
+// Inheritance between 'classes': object.create
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthDay);
+  },
+
+  init(firstName, birthDay) {
+    this.firstName = firstName;
+    this.birthDay = birthDay;
+  },
+};
+
+const steven2 = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthDay, course) {
+  PersonProto.init.call(this, firstName, birthDay);
+  this.course = course;
+};
+
+StudentProto.introduce = function () {
+  console.log(`Hi, I'm ${this.firstName} and I'm a ${this.course} student`);
+};
+
+const john = Object.create(StudentProto);
+john.init('John', 1991, 'Computer Science');
+john.introduce();
+john.calcAge();
+
+// another class example
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    this.movements = [];
+    this.local = navigator.language;
+
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+
+  // public interface
+  deposit(val) {
+    this.movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+  }
+
+  approveLoan(amount) {
+    return true;
+  }
+
+  requestLoan(amount) {
+    if (this.approveLoan(amount)) {
+      this.deposit(amount);
+      console.log(`Loan approved, ${amount} deposited`);
+    }
+  }
+}
+
+const acc1 = new Account('John', 'USD', 1234);
+
+// acc1.movements.push(300);
+// acc1.movements.push(-120);
+acc1.deposit(300);
+acc1.withdraw(120);
+acc1.requestLoan(1000);
+console.log(acc1);
