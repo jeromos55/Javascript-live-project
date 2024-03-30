@@ -287,44 +287,82 @@ john.init('John', 1991, 'Computer Science');
 john.introduce();
 john.calcAge();
 
+// --------------------------------------------
 // another class example
+// --------------------------------------------
+
+// 1. public fields
+// 2. private fields
+// 3. public methods
+// 4. private methods
+// ( there is also the static version)
+
 class Account {
+  // 1. public fields (instances)
+  locale = navigator.language;
+
+  // 2. private fields (instances)
+  #movements = [];
+  #pin;
+
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    this.pin = pin;
-    this.movements = [];
-    this.local = navigator.language;
+    // protected property
+    this.#pin = pin;
+    //this._movements = [];
+    //this.local = navigator.language;
 
     console.log(`Thanks for opening an account, ${owner}`);
   }
 
+  // 3. public methods
+
   // public interface
+  getMovements() {
+    return this.#movements;
+  }
+
   deposit(val) {
-    this.movements.push(val);
+    this.#movements.push(val);
   }
 
   withdraw(val) {
     this.deposit(-val);
   }
 
-  approveLoan(amount) {
-    return true;
-  }
-
   requestLoan(amount) {
-    if (this.approveLoan(amount)) {
+    // if (this.#approveLoan(amount)) {  // in the chrome browser not accepting this syntax
+    if (this._approveLoan(amount)) {
       this.deposit(amount);
       console.log(`Loan approved, ${amount} deposited`);
     }
+  }
+
+  // 4. private methods
+
+  static helper() {
+    console.log('I am a helper method');
+  }
+  // #approveLoan(amount) {  // in the chrome browser not accepting this syntax
+  _approveLoan(amount) {
+    return true;
   }
 }
 
 const acc1 = new Account('John', 'USD', 1234);
 
-// acc1.movements.push(300);
-// acc1.movements.push(-120);
+// acc1._movements.push(300);
+// acc1._movements.push(-120);
+
 acc1.deposit(300);
 acc1.withdraw(120);
 acc1.requestLoan(1000);
 console.log(acc1);
+
+// console.log(acc1.#movements);
+// console.log(acc1.#pin);
+// console.log(acc1.#approveLoan(1000));
+acc1.requestLoan(1000);
+
+Account.helper();
