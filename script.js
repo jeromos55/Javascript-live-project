@@ -28,21 +28,22 @@ if (navigator.geolocation) {
       }).addTo(map);
 
       map.on('click', function (mapEvent) {
-        // console.log(mapEvent.latlng);
-        const { lat, lng } = mapEvent.latlng;
-        L.marker([lat, lng])
-          .addTo(map)
-          .bindPopup(
-            L.popup({
-              maxWidth: 250,
-              minWidth: 100,
-              autoClose: false,
-              closeOnClick: false,
-              className: 'running-popup',
-            })
-          )
-          .setPopupContent('Workout')
-          .openPopup();
+        form.classList.remove('hidden');
+
+        // const { lat, lng } = mapEvent.latlng;
+        // L.marker([lat, lng])
+        //   .addTo(map)
+        //   .bindPopup(
+        //     L.popup({
+        //       maxWidth: 250,
+        //       minWidth: 100,
+        //       autoClose: false,
+        //       closeOnClick: false,
+        //       className: 'running-popup',
+        //     })
+        //   )
+        //   .setPopupContent('Workout')
+        //   .openPopup();
       });
     },
     function () {
