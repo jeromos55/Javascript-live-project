@@ -196,29 +196,88 @@ const renderCountry = function (data, className = '') {
 
 //const request = fetch('https://restcountries.com/v3.1/name/portugal');
 
+// const renderError = function (msg) {
+//   countriesContainer.insertAdjacentText('beforeend', msg);
+//   //countriesContainer.style.opacity = 1;
+// };
+
+// const getJSON = function (url, errorMsg = 'Something went wrong') {
+//   return fetch(url).then(response => {
+//     if (!response.ok) throw new Error(`${errorMsg} ${response.status}`);
+//     return response.json();
+//   });
+// };
+
+// const getCountryData = function (country) {
+//   country 1
+//   fetch(`https://restcountries.com/v3.1/name/${country}`)
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error(`Country not found ${response.status}`);
+//       }
+
+//       return response.json();
+//     })
+//     .then(data => {
+//       renderCountry(data[0]);
+//       const neighbors = data[0].borders[0];
+//       const neighbors = 'anything';
+
+//       if (!neighbors) return;
+
+//       country 2
+//       return fetch(`https://restcountries.com/v3.1/alpha/${neighbors}`);
+//     })
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error(`Country not found ${response.status}`);
+//       }
+
+//       return response.json();
+//     })
+//     .then(data => renderCountry(data[0], 'neighbour'))
+
+//     .catch(err => {
+//       console.error(`${err} 💥💥💥`),
+//         renderError(`Something went wrong! 💥💥 ${err.message}. Try again!`);
+//     })
+//     .finally(() => {
+//       countriesContainer.style.opacity = 1;
+//     });
+// };
+
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
   //countriesContainer.style.opacity = 1;
 };
 
+const getJSON = function (url, errorMsg = 'Something went wrong') {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(`${errorMsg} ${response.status}`);
+    return response.json();
+  });
+};
+
 const getCountryData = function (country) {
-  // country 1
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
+  //country 1
+  getJSON(`https://restcountries.com/v3.1/name/${country}`, 'Country not found')
     .then(data => {
       renderCountry(data[0]);
       const neighbors = data[0].borders[0];
 
-      if (!neighbors) return;
+      if (!neighbors) throw new Error('No neighbors found!');
 
-      // country 2
-      return fetch(`https://restcountries.com/v3.1/alpha/${neighbors}`);
+      //country 2
+      return getJSON(
+        `https://restcountries.com/v3.1/alpha/${neighbors}`,
+        'Country not found'
+      );
     })
-    .then(response => response.json())
+
     .then(data => renderCountry(data[0], 'neighbour'))
+
     .catch(err => {
-      console.error(`${err} 💥💥💥`),
-        renderError(`Something went wrong! 💥💥 ${err.message}. Try again!`);
+      renderError(`Something went wrong! 💥💥 ${err.message}. Try again!`);
     })
     .finally(() => {
       countriesContainer.style.opacity = 1;
@@ -229,4 +288,4 @@ btn.addEventListener('click', function () {
   getCountryData('portugal');
 });
 
-//getCountryData('hgjfghgjhgjhgjgjgj');
+getCountryData('australia');
