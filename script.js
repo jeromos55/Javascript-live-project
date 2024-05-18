@@ -273,9 +273,7 @@ const getCountryData = function (country) {
         'Country not found'
       );
     })
-
     .then(data => renderCountry(data[0], 'neighbour'))
-
     .catch(err => {
       renderError(`Something went wrong! 💥💥 ${err.message}. Try again!`);
     })
@@ -288,4 +286,4 @@ btn.addEventListener('click', function () {
   getCountryData('portugal');
 });
 
-getCountryData('australia');
+//getCountryData('australia');
