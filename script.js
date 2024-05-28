@@ -146,11 +146,55 @@
 
 //------ Example ------
 
-const btn = document.querySelector('.btn-country');
+// const btn = document.querySelector('.btn-country');
 
-var requestOptions = {
-  method: 'GET',
-};
+// var requestOptions = {
+//   method: 'GET',
+// };
+
+// const getPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
+
+// const whereAmI = function () {
+//   getPosition()
+//     .then(pos => {
+//       const { latitude: lat, longitude: lng } = pos.coords;
+//       return fetch(
+//         `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=34238e6111f24f0f8c5a650a1259b8c8`,
+//         requestOptions
+//       );
+//     })
+//     .then(response => {
+//       if (!response.ok)
+//         throw Error(`Problem with geocoding: ${response.status}`);
+//       return response.json();
+//     })
+//     .then(res => {
+//       console.log(
+//         `You are in ${res.features[0].properties.city}, ${res.features[0].properties.country}`
+//       );
+//       return fetch(
+//         `https://restcountries.com/v3.1/name/${res.features[0].properties.country}`
+//       );
+//     })
+//     .then(response => {
+//       if (!response.ok)
+//         throw new Error(`Country not found (${response.status})`);
+//       return response.json();
+//     })
+//     .then(data => renderCountry(data[0]))
+//     .catch(err => console.error(`${err.message}`));
+// };
+
+// btn.addEventListener('click', whereAmI);
+
+// ----------- consuming promises with async/await -----------
+
+const countriesContainer = document.querySelector('.countries');
+const btn = document.querySelector('.btn-country');
 
 const getPosition = function () {
   return new Promise(function (resolve, reject) {
@@ -158,41 +202,55 @@ const getPosition = function () {
   });
 };
 
-// getPosition().then(pos => {
-//   console.log(pos);
-// });
+const renderCountry = function (data, className = '') {
+  const html = `
+  <article class="country ${className}">
+    <img class="country__img" src="${data.flags.png}" />
+    <div class="country__data">
+      <h3 class="country__name">${data.name.common}</h3>
+      <h4 class="country__region">${data.region}</h4>
+      <p class="country__row"><span>👫</span>${(
+        +data.population / 1000000
+      ).toFixed(1)}M people</p>
+      <p class="country__row"><span>🗣️</span>${
+        data.languages[Object.keys(data.languages)[0]]
+      }</p>
+      <p class="country__row"><span>💰</span>${
+        data.currencies[Object.keys(data.currencies)[0]].name
+      }</p>
+    </div>
+  </article>
+  `;
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
+};
 
-// getPosition();
+const whereAmI = async function () {
+  const pos = await getPosition();
+  const { latitude: lat, longitude: lng } = pos.coords;
 
-const whereAmI = function () {
-  getPosition()
-    .then(pos => {
-      const { latitude: lat, longitude: lng } = pos.coords;
-      return fetch(
-        `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=34238e6111f24f0f8c5a650a1259b8c8`,
-        requestOptions
-      );
-    })
-    .then(response => {
-      if (!response.ok)
-        throw Error(`Problem with geocoding: ${response.status}`);
-      return response.json();
-    })
-    .then(res => {
-      console.log(
-        `You are in ${res.features[0].properties.city}, ${res.features[0].properties.country}`
-      );
-      return fetch(
-        `https://restcountries.com/v3.1/name/${res.features[0].properties.country}`
-      );
-    })
-    .then(response => {
-      if (!response.ok)
-        throw new Error(`Country not found (${response.status})`);
-      return response.json();
-    })
-    .then(data => renderCountry(data[0]))
-    .catch(err => console.error(`${err.message}`));
+  //------------ reverse geocoding ------------
+
+  const resGeo = await fetch(
+    `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=34238e6111f24f0f8c5a650a1259b8c8`
+  );
+
+  const dataGeo = await resGeo.json();
+  console.log(dataGeo.features[0].properties.country);
+
+  //------------ country data ------------
+
+  // fetch(`https://restcountries.com/v3.1/name/${country}`).then(res =>
+  //   console.log(res)
+  // );
+
+  const res = await fetch(
+    `https://restcountries.com/v3.1/name/${dataGeo.features[0].properties.country}`
+  );
+  const data = await res.json();
+  renderCountry(data[0]);
+  console.log(data);
 };
 
 btn.addEventListener('click', whereAmI);
+console.log('FIRST');
