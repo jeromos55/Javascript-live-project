@@ -196,6 +196,11 @@
 const countriesContainer = document.querySelector('.countries');
 const btn = document.querySelector('.btn-country');
 
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+  countriesContainer.style.opacity = 1;
+};
+
 const getPosition = function () {
   return new Promise(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -226,30 +231,39 @@ const renderCountry = function (data, className = '') {
 };
 
 const whereAmI = async function () {
-  const pos = await getPosition();
-  const { latitude: lat, longitude: lng } = pos.coords;
+  try {
+    // ------------ geolocation ------------
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
 
-  //------------ reverse geocoding ------------
+    //------------ reverse geocoding ------------
 
-  const resGeo = await fetch(
-    `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=34238e6111f24f0f8c5a650a1259b8c8`
-  );
+    const resGeo = await fetch(
+      `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=34238e6111f24f0f8c5a650a1259b8c8`
+    );
+    if (!resGeo.ok) throw new Error(`Problem with geocoding`);
 
-  const dataGeo = await resGeo.json();
-  console.log(dataGeo.features[0].properties.country);
+    const dataGeo = await resGeo.json();
+    console.log(dataGeo.features[0].properties.country);
 
-  //------------ country data ------------
+    //------------ country data ------------
 
-  // fetch(`https://restcountries.com/v3.1/name/${country}`).then(res =>
-  //   console.log(res)
-  // );
+    // fetch(`https://restcountries.com/v3.1/name/${country}`).then(res =>
+    //   console.log(res)
+    // );
 
-  const res = await fetch(
-    `https://restcountries.com/v3.1/name/${dataGeo.features[0].properties.country}`
-  );
-  const data = await res.json();
-  renderCountry(data[0]);
-  console.log(data);
+    const res = await fetch(
+      `https://restcountries.com/v3.1/name/${dataGeo.features[0].properties.country}`
+    );
+    if (!res.ok) throw new Error(`Problem with country`);
+
+    const data = await res.json();
+    renderCountry(data[0]);
+    console.log(data);
+  } catch (err) {
+    console.error(`${err} 💥`);
+    renderError(`Something went wrong 💥${err.message}`);
+  }
 };
 
 btn.addEventListener('click', whereAmI);
