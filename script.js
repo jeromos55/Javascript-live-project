@@ -244,7 +244,6 @@ const whereAmI = async function () {
     if (!resGeo.ok) throw new Error(`Problem with geocoding`);
 
     const dataGeo = await resGeo.json();
-    console.log(dataGeo.features[0].properties.country);
 
     //------------ country data ------------
 
@@ -259,12 +258,22 @@ const whereAmI = async function () {
 
     const data = await res.json();
     renderCountry(data[0]);
-    console.log(data);
+
+    return `You are in ${dataGeo.features[0].properties.city}, ${dataGeo.features[0].properties.country}`;
   } catch (err) {
     console.error(`${err} 💥`);
     renderError(`Something went wrong 💥${err.message}`);
+
+    // reject promise returned from async function
+    throw err;
   }
 };
 
-btn.addEventListener('click', whereAmI);
-console.log('FIRST');
+console.log('1: I will get location');
+// btn.addEventListener('click', () => {
+//   whereAmI;
+// });
+whereAmI()
+  .then(city => console.log(`2: ${city}`))
+  .catch(err => console.error(`2: ${err.message} 💥`))
+  .finally(() => console.log('3: Finished getting location'));
