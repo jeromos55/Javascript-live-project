@@ -1,46 +1,99 @@
-// importing module
-import { addToCart, totalPrice as price, tq } from './shoppingCart.js';
+// ------------ importing module --------------
+// import { addToCart, totalPrice as price, tq } from './shoppingCart.js';
+// console.log('importing module');
 
-console.log('importing module');
+//---------- import as an object --------------
+// import * as ShoppingCart from './shoppingCart.js';
+// ShoppingCart.addToCart('shoes', 1);
+// console.log(ShoppingCart.cart[0].product, ShoppingCart.cart[0].quantity);
+// ShoppingCart.addToCart('bread', 5);
+// ShoppingCart.cart.forEach(x => console.log(x.product, x.quantity));
+// console.log(ShoppingCart);
 
-import * as ShoppingCart from './shoppingCart.js'; // import as an object
+//-------------- import only one thing from a module --------------
+// import add from './shoppingCart.js';
+// add('bread', 20);
+// import add2, { cart } from './shoppingCart.js';
+// add2('potato', 25);
+// add2('shoes', 5);
+// add2('socks', 2);
+// console.log(
+//   cart.forEach(element => {
+//     console.log(element.product, element.quantity);
+//   })
+// );
 
-addToCart('shoes', 1);
-console.log(price, tq);
-
-ShoppingCart.addToCart('socks', 1);
-console.log(ShoppingCart.totalPrice, ShoppingCart.totalQuantity);
-
-import add from './shoppingCart.js'; // import only one thing from a module
-add('bread', 20);
-
-import add2, { cart } from './shoppingCart.js';
-
-add2('bread', 20);
-add2('shoes', 1);
-add2('socks', 1);
-console.log(cart);
-
-// await breaks the process until fetching
+//----------- await breaks the process -------------
+// both await break the process until is done :(
 // console.log('start fetching');
 // const res = await fetch('https://jsonplaceholder.typicode.com/posts');
 // const data = await res.json();
 // console.log(data);
-// console.log('Something');
+// console.log('end fetching');
 
-const getLastPost = async function () {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const data = await res.json();
+//----------- async don't breaks the process -------------
+// const getLastPost = async function () {
+//   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+//   const data = await res.json();
 
-  return { title: data.at(-1).title, body: data.at(-1).body };
-};
+//   return { title: data.at(-1).title, body: data.at(-1).body };
+// };
 
-const lastPost = getLastPost();
-console.log(lastPost);
+// const lastPost = getLastPost();
+// console.log(lastPost);
 
-// not very clear
-lastPost.then(data => console.log(data));
+// // not very clear
+// lastPost.then(data => console.log(data));
 
-// this better and more efficient
-const lastPost2 = await getLastPost();
-console.log(lastPost2);
+// // this better and more efficient
+// const lastPost2 = await getLastPost();
+// console.log(lastPost2);
+
+// --------- The Module pattern --------------
+
+const ShoppingCart2 = (function () {
+  const cart = [];
+  const shippingCost = 10;
+  const totalPrice = 237;
+  const totalQuantity = 23;
+
+  const addToCart = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(
+      `${quantity} ${product} added to cart (shipping cost: ${shippingCost})`
+    );
+  };
+
+  const orderStock = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(`${quantity} ${product} ordered from supplier`);
+  };
+
+  return {
+    addToCart,
+    cart,
+    totalPrice,
+    totalQuantity,
+    shippingCost,
+  };
+})();
+
+ShoppingCart2.addToCart('shoes', 3);
+ShoppingCart2.addToCart('socks', 10);
+console.log(ShoppingCart2);
+console.log(ShoppingCart2.shippingCost);
+
+// ------------- common.js ----------------
+
+// // ------------- export module ----------------
+
+// export const addToCartCommon = function (product, quantity) {
+//   cart.push({ product, quantity });
+//   console.log(
+//     `${quantity} ${product} added to cart (shipping cost: ${shippingCost})`
+//   );
+// };
+
+// // ------------- import module ----------------
+
+// const {addToCartCommon} = require('./shoppingCart.js');
