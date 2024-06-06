@@ -97,3 +97,25 @@ console.log(ShoppingCart2.shippingCost);
 // // ------------- import module ----------------
 
 // const {addToCartCommon} = require('./shoppingCart.js');
+
+//----------------- importing cloneDeep method from lodash ----------------
+
+import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+
+const state = {
+  cart: [
+    { product: 'bread', quantity: 2 },
+    { product: 'potato', quantity: 1 },
+  ],
+  user: { loggedIn: true },
+};
+
+const stateClone = Object.assign({}, state);
+state.user.loggedIn = false;
+console.log(state.user.loggedIn, stateClone.user.loggedIn);
+// the  stateClone.user.loggedIn is false too because state and stateClone are the same object
+
+const stateDeepClone = cloneDeep(state);
+state.user.loggedIn = true;
+console.log(state.user.loggedIn, stateDeepClone.user.loggedIn);
+// the stateDeepClone.user.loggedIn is false because state and stateDeepClone are different objects
