@@ -1,13 +1,13 @@
 {
-  "name": "course_project",
+  "name": "javascript-live-project",
   "version": "1.0.0",
-  "description": "course_project",
-  "main": "script.js",
+  "description": "",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel index.html",
     "build": "parcel build index.html"
   },
-  "author": "",
+  "author": "javascript course",
   "license": "ISC",
   "dependencies": {
     "leaflet": "^1.9.4",

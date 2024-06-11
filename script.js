@@ -119,3 +119,17 @@ const stateDeepClone = cloneDeep(state);
 state.user.loggedIn = true;
 console.log(state.user.loggedIn, stateDeepClone.user.loggedIn);
 // the stateDeepClone.user.loggedIn is false because state and stateDeepClone are different objects
+
+if (module.hot) {
+  module.hot.accept();
+}
+
+class Person {
+  #greeting = 'Hey';
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.#greeting}, ${this.name}`);
+  }
+}
+
+const Hello = new Person('John');
