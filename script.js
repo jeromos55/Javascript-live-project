@@ -105,7 +105,13 @@ import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
 const state = {
   cart: [
     { product: 'bread', quantity: 2 },
-    { product: 'potato', quantity: 1 },
+    { product: 'bread', quantity: 3 },
+    { product: 'bread', quantity: 4 },
+    { product: 'bread', quantity: 5 },
+    { product: 'potato', quantity: 2 },
+    { product: 'potato', quantity: 3 },
+    { product: 'potato', quantity: 4 },
+    { product: 'potato', quantity: 5 },
   ],
   user: { loggedIn: true },
 };
@@ -133,3 +139,14 @@ class Person {
 }
 
 const Hello = new Person('John');
+
+console.log('John' ?? null);
+
+console.log(state.cart.find(x => x.quantity > 3));
+Promise.resolve('TEST').then(data => console.log(data));
+
+import 'core-js/stable';
+// import 'core-js/stable/array/find';
+// import 'core-js/stable/promise';
+
+import 'regenerator-runtime/runtime.js';
